@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+using namespace std;
+int dp[100001][51] = {0};
+
+int road(int c, int i, int n, int a[], int k, int l)
+{
+    if (k < 0 )
+        return -100;
+    if (n == l || i == l)
+        return c;
+    if (n < l && k >= 0 && dp[n][k] != 0 )
+        return dp[n][k];
+    else {
+        dp[n][k] = max(road(c+1, n, n+1, a, k-abs(a[i]-a[n]) ,l), road(c, i, n+1, a, k, l));
+        return dp[n][k];}
+    return dp[n][k];
+}
+int main()
+{
+    int n, k;
+    scanf ("%d%d", &n,&k);
+    int i;
+    int a[n];
+    for (i = 0; i < n; i++)
+        scanf ("%d", &a[i]);
+    printf ("%d \n", road(1, 0, 1, a, k, n));
+}
+
